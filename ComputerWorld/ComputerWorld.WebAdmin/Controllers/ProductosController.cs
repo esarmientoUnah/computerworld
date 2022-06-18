@@ -37,7 +37,7 @@ namespace ComputerWorld.WebAdmin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Crear ( Producto producto )
+        public ActionResult Crear ( Producto producto, HttpPostedFileBase imagen)
         {
 
             if (ModelState.IsValid)
@@ -45,6 +45,11 @@ namespace ComputerWorld.WebAdmin.Controllers
                 if (producto.CategoriaId == 0)
                 {
                     ModelState.AddModelError("CategoriaId", "Seleccione una categoria");
+                }
+
+                if (imagen != null)
+                {
+                    producto.UrlImagen = GuardarImagen(imagen);
                 }
 
                 _productosBL.GuardarProducto(producto);
@@ -114,5 +119,12 @@ namespace ComputerWorld.WebAdmin.Controllers
             return RedirectToAction("Index");
         }
 
+        private string GuardarImagen(HttpPostedFileBase imagen)
+        {
+            string path = Server.MapPath ("~/Imagenes/" + imagen.FileName);
+            imagen.SaveAs(path);
+
+            return "/Imagenes/" + imagen.FileName;
+        }
     }
 }
