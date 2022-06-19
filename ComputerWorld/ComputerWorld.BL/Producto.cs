@@ -19,19 +19,19 @@ namespace ComputerWorld.BL
         [Display (Name = "Descripción")]
         [Required(ErrorMessage = "Ingrese la descripcion")]
         [MinLength (3, ErrorMessage = "Ingrese minimo 3 caracteres")]
+        [MaxLength(20, ErrorMessage = "Ingrese maximo de 20 caracteres")]
         public string Descripcion { get; set; }
 
         [Required(ErrorMessage = "Ingrese el precio")]
         [Range(0, 100000,ErrorMessage = "Ingrese un precio entre 0 y 100000")]
-        public int Precio { get; set; }
-
+        public double Precio { get; set; }
         public int CategoriaId { get; set; }
+        public Categoria Categoria { get; set; }
 
         [Display(Name = "Imagen")]
         public string UrlImagen { get; set; }
 
-        public Categoria Categoria { get; set; }
-        public  bool Activo { get; set; }
+        public bool Activo { get; set; }
 
     }
 }
