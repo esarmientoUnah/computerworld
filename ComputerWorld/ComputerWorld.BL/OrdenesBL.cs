@@ -26,11 +26,60 @@ namespace ComputerWorld.BL
             return ListadeOrdenes;
         }
 
+        public List<OrdenDetalle> ObtenerOrdenDetalle(int ordenId)
+        {
+            var listadeOrdenesDetalle = _contexto.OrdenDetalle
+                .Include("Producto")
+                .Where(o => o.OrdenId == ordenId).ToList();
+
+            return listadeOrdenesDetalle;
+        }
+
+        public OrdenDetalle ObtenerOrdenDetallePorId(int id)
+        {
+            var ordenDetalle = _contexto.OrdenDetalle
+                .Include("Producto").FirstOrDefault(p => p.Id == id);
+
+            return ordenDetalle;
+        }
+
+        public Orden ObtenerOrden(int id)
+        {
+            var orden = _contexto.Ordenes
+                .Include("Cliente").FirstOrDefault(p => p.Id == id);
+
+            return orden;
+        }
+
         public void GuardarOrden(Orden orden)
         {
-            _contexto.Ordenes.Add(orden);
+            if (orden.Id == 0)
+            {
+                _contexto.Ordenes.Add(orden);
+            }
+            else
+            {
+                var ordenExistente = _contexto.Ordenes.Find(orden.Id);
+                ordenExistente.ClienteId = orden.ClienteId;
+                ordenExistente.Activo = orden.Activo;
+            }
 
             _contexto.SaveChanges();
-        }        
+        }
+
+        public void GuardarOrdenDetalle(OrdenDetalle ordenDetalle)
+        {
+            var producto = _contexto.Productos.Find(ordenDetalle.ProductoId);
+
+            ordenDetalle.Precio = producto.Precio;
+            ordenDetalle.Total = ordenDetalle.Cantidad * ordenDetalle.Precio;
+
+            _contexto.OrdenDetalle.Add(ordenDetalle);
+
+            var orden = _contexto.Ordenes.Find(ordenDetalle.OrdenId);
+            orden.Total = orden.Total + ordenDetalle.Total;
+
+            _contexto.SaveChanges();
+        }
     }
 }
