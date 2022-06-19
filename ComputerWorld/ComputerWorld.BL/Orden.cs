@@ -21,7 +21,11 @@ namespace ComputerWorld.BL
         {
             Activo = true;
             Fecha = DateTime.Now;
+
+            ListadeOrdenDetalle = new List<OrdenDetalle>();
         }
+
+        
     }
 
     public class OrdenDetalle
