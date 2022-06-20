@@ -60,5 +60,22 @@ namespace ComputerWorld.WebAdmin.Controllers
             return View(ordenDetalle);
 
         }
+
+
+        public ActionResult Eliminar(int id)
+        {
+            var ordenDetalle = _ordenBL.ObtenerOrdenDetallePorId(id);
+
+            return View(ordenDetalle);
+        }
+
+        [HttpPost]
+        public ActionResult Eliminar(OrdenDetalle ordenDetalle)
+        {
+            _ordenBL.EliminarOrdenDetalle(ordenDetalle.Id);
+
+            return RedirectToAction("Index", new { id = ordenDetalle.OrdenId });
+        }
     }
+
 }
