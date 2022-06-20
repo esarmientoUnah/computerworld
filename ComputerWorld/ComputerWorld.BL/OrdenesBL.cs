@@ -69,16 +69,8 @@ namespace ComputerWorld.BL
 
         public void GuardarOrdenDetalle(OrdenDetalle ordenDetalle)
         {
-            var producto = _contexto.Productos.Find(ordenDetalle.ProductoId);
-
-            ordenDetalle.Precio = producto.Precio;
-            ordenDetalle.Total = ordenDetalle.Cantidad * ordenDetalle.Precio;
-
+          
             _contexto.OrdenDetalle.Add(ordenDetalle);
-
-            var orden = _contexto.Ordenes.Find(ordenDetalle.OrdenId);
-            orden.Total = orden.Total + ordenDetalle.Total;
-
             _contexto.SaveChanges();
         }
     }
