@@ -21,8 +21,10 @@ namespace ComputerWorld.BL
         public List<Producto> ObtenerProductos()
         {
             ListadeProductos = _contexto.Productos
-                .Include("Categoria")
-                .ToList();
+               .Include("Categoria")
+               .OrderBy(r => r.Categoria.Descripcion)
+               .ThenBy(r => r.Descripcion)
+               .ToList();
 
             return ListadeProductos;
         }
