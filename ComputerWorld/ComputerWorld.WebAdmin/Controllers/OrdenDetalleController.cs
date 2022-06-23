@@ -28,7 +28,7 @@ namespace ComputerWorld.WebAdmin.Controllers
             return View(orden);
         }
 
-        public  ActionResult Crear(int id)
+        public ActionResult Crear(int id)
         {
             var nuevaOrdenDetalle = new OrdenDetalle();
             nuevaOrdenDetalle.OrdenId = id;
@@ -38,27 +38,26 @@ namespace ComputerWorld.WebAdmin.Controllers
 
             return View(nuevaOrdenDetalle);
         }
-        
+
         [HttpPost]
         public ActionResult Crear(OrdenDetalle ordenDetalle)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                if(ordenDetalle.ProductoId == 0)
+                if (ordenDetalle.ProductoId == 0)
                 {
-                    ModelState.AddModelError("ProductoId", "Selecciones un producto");
+                    ModelState.AddModelError("ProductoId", "Seleccione un producto");
                     return View(ordenDetalle);
                 }
 
                 _ordenBL.GuardarOrdenDetalle(ordenDetalle);
-                return RedirectToAction("Index", new { id = ordenDetalle.OrdenId});
+                return RedirectToAction("Index", new { id = ordenDetalle.OrdenId });
             }
 
             var productos = _productosBL.ObtenerProductosActivos();
             ViewBag.ProductoId = new SelectList(productos, "Id", "Descripcion");
 
             return View(ordenDetalle);
-
         }
 
 

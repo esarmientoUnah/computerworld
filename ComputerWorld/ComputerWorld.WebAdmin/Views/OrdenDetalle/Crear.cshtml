@@ -11,7 +11,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>OrdenDetalle</h4>
+        <h4>Orden Detalle</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -42,5 +42,8 @@
 }
 
 <div>
-    @Html.ActionLink("Regresar a la lista", "Index")
+    @Html.ActionLink("Regresar a la lista", "Index",new { Id = Model.OrdenId })
 </div>
+
+
+
