@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace ComputerWorld.WebAdmin.Controllers
 {
+
     public class ProductosController : Controller
     {
         ProductosBL _productosBL;
@@ -17,6 +18,7 @@ namespace ComputerWorld.WebAdmin.Controllers
             _productosBL = new ProductosBL();
             _categoriasBL = new CategoriasBL();
         }
+
         // GET: Productos
         public ActionResult Index()
         {
@@ -30,6 +32,7 @@ namespace ComputerWorld.WebAdmin.Controllers
             var nuevoProducto = new Producto();
             var categorias = _categoriasBL.ObtenerCategorias();
 
+
             ViewBag.CategoriaId = 
                 new SelectList(categorias, "Id", "Descripcion");
 
@@ -39,12 +42,12 @@ namespace ComputerWorld.WebAdmin.Controllers
         [HttpPost]
         public ActionResult Crear ( Producto producto, HttpPostedFileBase imagen)
         {
-
             if (ModelState.IsValid)
             {
                 if (producto.CategoriaId == 0)
                 {
                     ModelState.AddModelError("CategoriaId", "Seleccione una categoria");
+                    return View(producto);
                 }
 
                 if (imagen != null)
@@ -53,6 +56,7 @@ namespace ComputerWorld.WebAdmin.Controllers
                 }
 
                 _productosBL.GuardarProducto(producto);
+
                 return RedirectToAction("Index");
             }
 
@@ -76,16 +80,23 @@ namespace ComputerWorld.WebAdmin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Editar (Producto producto)
+        public ActionResult Editar(Producto producto, HttpPostedFileBase imagen)
         {
             if (ModelState.IsValid)
             {
                 if (producto.CategoriaId == 0)
                 {
                     ModelState.AddModelError("CategoriaId", "Seleccione una categoria");
+                    return View(producto);
+                }
+
+                if (imagen != null)
+                {
+                    producto.UrlImagen = GuardarImagen(imagen);
                 }
 
                 _productosBL.GuardarProducto(producto);
+
                 return RedirectToAction("Index");
             }
 
@@ -102,7 +113,6 @@ namespace ComputerWorld.WebAdmin.Controllers
             var producto = _productosBL.ObtenerProducto(id);
 
             return View(producto);
-
         }
 
         public ActionResult Eliminar (int id)
@@ -116,6 +126,7 @@ namespace ComputerWorld.WebAdmin.Controllers
         public ActionResult Eliminar (Producto producto)
         {
             _productosBL.EliminarProducto(producto.Id);
+
             return RedirectToAction("Index");
         }
 

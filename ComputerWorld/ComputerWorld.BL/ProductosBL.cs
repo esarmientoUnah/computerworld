@@ -15,7 +15,6 @@ namespace ComputerWorld.BL
         {
             _contexto = new Contexto();
             ListadeProductos = new List<Producto>();
-
         }
 
         public List<Producto> ObtenerProductos()
@@ -40,8 +39,6 @@ namespace ComputerWorld.BL
             return ListadeProductos;
         }
 
-
-
         public void GuardarProducto(Producto producto)
         {
             if(producto.Id == 0)
@@ -55,11 +52,9 @@ namespace ComputerWorld.BL
                 productoExistente.CategoriaId = producto.CategoriaId;
                 productoExistente.Precio = producto.Precio;
                 productoExistente.UrlImagen = producto.UrlImagen;
-
             }
             
             _contexto.SaveChanges();
-
         }
 
         public  Producto ObtenerProducto(int id)
