@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace ComputerWorld.WebAdmin.Controllers
 {
-    
+    [Authorize]  
     public class CategoriasController : Controller
     {
         CategoriasBL _categoriasBL;
