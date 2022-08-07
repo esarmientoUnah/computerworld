@@ -1,4 +1,4 @@
-﻿@model ComputerWorld.BL.Cliente
+﻿@model ComputerWorld.BL.Empleado
 
 @{
     ViewBag.Title = "Detalle";
@@ -7,7 +7,7 @@
 <h2>Detalle</h2>
 
 <div>
-    <h4>Cliente</h4>
+    <h4>Empleado</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -19,19 +19,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Telefono)
+            @Html.DisplayNameFor(model => model.Salario)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Telefono)
+            @Html.DisplayFor(model => model.Salario)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Direccion)
+            @Html.DisplayNameFor(model => model.Codigo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Direccion)
+            @Html.DisplayFor(model => model.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cargo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cargo)
         </dd>
 
         <dt>
@@ -46,5 +54,5 @@
 </div>
 <p>
     @Html.ActionLink("Editar", "Editar", new { id = Model.Id }) |
-    @Html.ActionLink("Regresar a Clientes", "Index")
+    @Html.ActionLink("Regresar a Empleados", "Index")
 </p>
