@@ -106,7 +106,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                     @foreach (var producto in Model
                         .Where(r => r.Categoria.Descripcion == "Computadoras Personales")
-                        .Take(11)
+                        .Take(4)
                         .OrderBy(r => Guid.NewGuid())
                         )                                
                     {
@@ -126,10 +126,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     <span class="reducedfrom">L.0</span>
                                     <span class="actual">L. @producto.Precio</span><br>
                                     <ul class="buttons">
-                                        <li class="cart"><a href="#">Add To Cart</a></li>
-                                        <li class="shop_btn"><a href="#">Read More</a></li>
-                                        <div class="clear"> </div>
-                                    </ul>
+                                      
+                                            <li class="shop_btn"><a href="#">Read More</a></li>
+                                            <div class="clear"> </div>
+                                        </ul>
+
+                                    <a id="btn_add" href="@Url.Action("Agregar", "Carrito", new { id=producto.Id})" class="btn btn-info btn-lg" style="margin-left:60px">
+                                        <span class="glyphicon glyphicon-shopping-cart"></span> 
+                                    </a>
                                 </div>
                             </a>
                         </div>
